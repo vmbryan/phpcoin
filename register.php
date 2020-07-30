@@ -1,6 +1,6 @@
-<?php 
+<?php
     include_once(__DIR__."/classes/User.php");
-    session_start();
+    include_once(__DIR__."/classes/Db.php");
 
 ?>
 <!doctype html>
@@ -20,13 +20,16 @@
 <body class="text-center">
   <form class="form-signin">
     <img class="mb-2" src="./assets/brand/cent-text-solid.svg" alt="" width="250" height="100">
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+    <h1 class="h3 mb-3 font-weight-normal">Register here</h1>
+    <label for="inputName" class="sr-only">Name</label>
+    <input type="email" id="inputName" class="form-control" placeholder="Name" required autofocus>
+    <label for="inputLastName" class="sr-only">LastName</label>
+    <input type="email" id="inputLastName" class="form-control" placeholder="Last name" required autofocus>
     <label for="inputEmail" class="sr-only">Email address</label>
     <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
     <label for="inputPassword" class="sr-only">Password</label>
     <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-    <p>Not a member yet? please sign up <a href="register.php" class="link text-primary">Here!</a></p>
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
 
   </form>
 </body>
