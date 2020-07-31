@@ -1,6 +1,5 @@
 <?php 
     include_once(__DIR__."/classes/User.php");
-    include_once(__DIR__."/classes/Register.php");
     session_start();
 
 
