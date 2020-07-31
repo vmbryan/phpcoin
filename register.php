@@ -7,7 +7,7 @@
     if(!empty ($_POST)){
         try {
             //code...
-            $con = Db::getConnection();
+            //$con = Db::getConnection();
             $user = new User();
             $user->setName($_POST['name']);
             $user->setLastName($_POST['lastName']);
@@ -37,7 +37,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Sign in</title>
+  <title>Register</title>
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
   <!-- Custom styles for this template -->
@@ -69,6 +69,7 @@
     <label for="password" class="sr-only">Password</label>
     <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+    <p class="pt-2">Already a member? Sign in <a href="index.php" class="link  text-primary">Here!</a></p>
 
   </form>
 </body>

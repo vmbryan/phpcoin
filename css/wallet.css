@@ -6,6 +6,9 @@ body {
 body {
   padding-top: 56px;
 }
+#sendmessage{
+  display:none;
+}
 
 @media (max-width: 991.98px) {
   .offcanvas-collapse {

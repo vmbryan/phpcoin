@@ -2,8 +2,22 @@
     include_once(__DIR__."/classes/User.php");
     session_start();
 
+    if (!empty($_POST)) {
+      try {
+        //code...
+        //$con = Db::getConnection();
+        $user = new User();
+        $email = $_POST['email'];
+        $password = ($_POST['password']);
+        $user->verify($email,$password);
 
-?>
+      } catch (\Throwable $th) {
+        //throw $th;
+        $error = $th->getMessage();
+      }
+    }
+
+ ?>
 <!doctype html>
 <html lang="en">
 
@@ -19,13 +33,18 @@
 </head>
 
 <body class="text-center">
-  <form class="form-signin" >
+  <form class="form-signin" method="post" action="">
     <img class="mb-2" src="./assets/brand/cent-text-solid.svg" alt="" width="250" height="100">
     <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+    <?php if(isset($error)): ?>
+        <div class="alert alert-warning" role="alert">
+            <?php echo $error;?>
+        </div>
+    <?php endif ;?>
     <label for="email" class="sr-only">Email address</label>
-    <input type="email" id="email" class="form-control" placeholder="Email address" required autofocus>
+    <input type="email" name="email" id="email" class="form-control" placeholder="Email address" required autofocus>
     <label for="password" class="sr-only">Password</label>
-    <input type="password" id="password" class="form-control" placeholder="Password" required>
+    <input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
     <p>Not a member yet? please sign up <a href="register.php" class="link text-primary">Here!</a></p>
     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
 

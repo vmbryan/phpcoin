@@ -5,6 +5,7 @@
             private $lastName;
             private $email;
             private $password;
+            private $tokens;
 
             
 
@@ -114,6 +115,26 @@
                 return false;
             }
 
+            public function verify($email,$password)
+            {
+                
+                if (!empty($email) && !empty($password)) {
+                    $con = Db::getConnection();
+                    $stmt = $con->prepare('SELECT * FROM users WHERE email = :email');
+                    $stmt->bindValue(":email", $email);
+                    $stmt->execute();
+                    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+                    if (!empty($result)) {
+                        if (password_verify($password, $result['password'])) {
+                            $_SESSION['user'] = $email;
+                            header("Location: wallet.php");
+                        }
+                        throw new Exception("Wrong email or password");
+                    }
+                    throw new Exception('Wrong email or password');
+                }
+            }
+
             public function saveUser(){
                 $con = Db::getConnection();
                 $stmt = $con->prepare('INSERT INTO users (name, last_name, email, password, tokens) VALUES (:name, :lastName, :email, :password, 10)');
@@ -121,6 +142,9 @@
                 $lastName =$this->getLastName();
                 $email =$this->getEmail();
                 $password = $this->getPassword();
+                if(strlen($password) < 5){
+                    throw new Exception("Password must be at least 5 characters long");
+                }
                 $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
                 $stmt->bindValue(":name", $name);
