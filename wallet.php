@@ -1,3 +1,22 @@
+<?php
+include_once("./classes/User.php");
+session_start();
+if (!isset($_SESSION['user'])) {
+    //ok
+    header("Location: index.php");
+}
+
+$tokens = User::getTokens($_SESSION['user']);
+
+try {
+    //code...
+
+
+} catch (\Throwable $th) {
+    //throw $th;
+}
+
+?>
 <!doctype html>
 <html lang="en">
 
@@ -13,20 +32,31 @@
 <body class="bg-light pt-3">
 
     <main role="main" class="container">
-        <div class="d-flex justify-content-center bg-light pt-1">
+        <div class="d-flex justify-content-between align-items-center  bg-light pt-1">
             <img class="" src="./assets/brand/cent-text-solid.svg" alt="logo" width="150">
+            <div>
+                <a href="logout.php" class='btn btn-primary' role='button'>Log out</a>
+            </div>
         </div>
 
         <div class="d-flex flex-column align-items-center bg-white rounded shadow-sm pt-1 mt-3">
-            <p class="font-weight-bold mb-1 mt-1">current balance</p>
-            <h3 class="pb-1">80.00</h3>
+            <h2 class='font-weight-bold mt-1'>Hello name!</h2>
+            <p class="font-weight-bold mb-1 text-info">current balance</p>
+
+            <h2 class="pb-1">
+                <?php if ($tokens < 1) {
+                    echo "You have no tokens!";
+                }
+                echo $tokens; ?>
+            </h3>
+
         </div>
 
         <div class="d-flex justify-content-center">
             <a class="btn btn-block btn-primary mt-3" href="#" role="button" onclick='togSend()'>Send tokens</a>
         </div>
 
-        <form class="bg-white my-3 p-3 bg-white rounded shadow-sm" id="sendmessage" action="">
+        <form class="bg-white my-3 p-3 bg-white rounded shadow-sm " id="sendmessage" action="">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon1">@</span>

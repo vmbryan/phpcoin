@@ -1,7 +1,6 @@
 <?php 
     include_once(__DIR__."/classes/User.php");
     session_start();
-
     if (!empty($_POST)) {
       try {
         //code...
@@ -10,6 +9,7 @@
         $email = $_POST['email'];
         $password = ($_POST['password']);
         $user->verify($email,$password);
+        
 
       } catch (\Throwable $th) {
         //throw $th;

@@ -115,9 +115,17 @@
                 return false;
             }
 
-            public function verify($email,$password)
-            {
-                
+            public static function getTokens($user){
+                $con = Db::getConnection();
+                $stmt = $con->prepare('SELECT tokens FROM users WHERE email = :email');
+                $stmt->bindValue(':email', $user);
+                $stmt->execute();
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+                $result = $result['tokens'];
+                return $result;
+            }
+
+            public function verify($email,$password){
                 if (!empty($email) && !empty($password)) {
                     $con = Db::getConnection();
                     $stmt = $con->prepare('SELECT * FROM users WHERE email = :email');
@@ -134,6 +142,7 @@
                     throw new Exception('Wrong email or password');
                 }
             }
+
 
             public function saveUser(){
                 $con = Db::getConnection();
