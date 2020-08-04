@@ -115,13 +115,12 @@
                 return false;
             }
 
-            public static function getTokens($user){
+            public static function getData($user){
                 $con = Db::getConnection();
-                $stmt = $con->prepare('SELECT tokens FROM users WHERE email = :email');
+                $stmt = $con->prepare('SELECT id,name, last_name, email, tokens FROM users WHERE email = :email');
                 $stmt->bindValue(':email', $user);
                 $stmt->execute();
                 $result = $stmt->fetch(PDO::FETCH_ASSOC);
-                $result = $result['tokens'];
                 return $result;
             }
 

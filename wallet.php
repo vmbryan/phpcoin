@@ -1,20 +1,16 @@
 <?php
 include_once("./classes/User.php");
+include_once("./classes/Transfer.php");
 session_start();
 if (!isset($_SESSION['user'])) {
     //ok
     header("Location: index.php");
 }
+$data = User::getData($_SESSION['user']);
+$searchData = Transfer::viewData();
 
-$tokens = User::getTokens($_SESSION['user']);
-
-try {
-    //code...
-
-
-} catch (\Throwable $th) {
-    //throw $th;
-}
+$tokens = $data['tokens'];
+$name = $data['name'];
 
 ?>
 <!doctype html>
@@ -26,7 +22,6 @@ try {
     <title>Wallet</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" href="./css/wallet.css">
-    <link rel="stylesheet" href="./css/colors.css">
 </head>
 
 <body class="bg-light pt-3">
@@ -40,15 +35,15 @@ try {
         </div>
 
         <div class="d-flex flex-column align-items-center bg-white rounded shadow-sm pt-1 mt-3">
-            <h2 class='font-weight-bold mt-1'>Hello name!</h2>
+            <h2 class='font-weight-bold mt-1'>Hello <?php echo htmlspecialchars($name); ?>!</h2>
             <p class="font-weight-bold mb-1 text-info">current balance</p>
 
             <h2 class="pb-1">
                 <?php if ($tokens < 1) {
                     echo "You have no tokens!";
                 }
-                echo $tokens; ?>
-            </h3>
+                echo htmlspecialchars($tokens); ?>
+                </h3>
 
         </div>
 
@@ -56,28 +51,44 @@ try {
             <a class="btn btn-block btn-primary mt-3" href="#" role="button" onclick='togSend()'>Send tokens</a>
         </div>
 
-        <form class="bg-white my-3 p-3 bg-white rounded shadow-sm " id="sendmessage" action="">
+        <form class="bg-white my-3 p-3 bg-white rounded shadow-sm " method="post" id="sendmessage">
+            <?php if (isset($error)) : ?>
+                <div class="alert alert-warning" role="alert">
+                    <?php echo htmlspecialchars($error); ?>
+                </div>
+            <?php endif; ?>
+
+            <?php if (isset($success)) : ?>
+                <div class="alert alert-success" role="alert">
+                    <p><?php echo htmlspecialchars($success); ?></p>
+                </div>
+            <?php endif; ?>
+
+            <!-- search bar -->
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
+                    <p id="sender_id" name='sender_id' style="display: none"><?php echo htmlspecialchars($id) ?></p>
                     <span class="input-group-text" id="basic-addon1">@</span>
                 </div>
-                <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                <input type="text" class="form-control" name="receiver_id" id='receiver_id' placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
             </div>
+            <!-- end search bar -->
+
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text">Tokens</span>
                 </div>
-                <input type="text" class="form-control" aria-label="Amount">
+                <input type="text" name="amount" id='amount' class="form-control" aria-label="amount">
             </div>
 
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text">Message</span>
                 </div>
-                <textarea class="form-control" aria-label="Message"></textarea>
+                <input type="text" name="message" id='message' class="form-control" aria-label="Message">
             </div>
             <div class="d-flex justify-content-center">
-                <a class="btn btn-block btn-success mt-3" href="#" role="button">Confirm</a>
+                <button class="btn btn-block btn-success mt-3" type="button" id='sendTokens' href="#" role="button">Confirm</button>
             </div>
             <div class="d-flex justify-content-center">
                 <a class="btn btn-block btn-danger mt-3" href="#" role="button" onclick='togSend()'>Cancel</a>
@@ -125,6 +136,7 @@ try {
 
         </div>
     </main>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script src="js/wallet.js"></script>
 </body>
 
