@@ -89,7 +89,7 @@
 
             public static function viewData(){
                 $con = Db::getConnection();
-                $stmt = $con->prepare('SELECT id, name, last_name FROM users');
+                $stmt = $con->prepare('SELECT id, name, last_name FROM users WHERE name LIKE :name or last_name LIKE :last_name');
                 $stmt->execute();
                 $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 return $data;
@@ -101,6 +101,7 @@
                 $sender =$this->getSender();
                 $receiver =$this->getReceiver();
                 $amount =$this->getAmount();
+
                 $message = $this->getMessage();
 
                 $stmt->bindValue(":sender_id", $sender);

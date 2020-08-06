@@ -9,8 +9,9 @@ if (!isset($_SESSION['user'])) {
 $data = User::getData($_SESSION['user']);
 $searchData = Transfer::viewData();
 
-$tokens = $data['tokens'];
-$name = $data['name'];
+$_SESSION['tokens'] = $data['tokens'];
+$_SESSION['name'] = $data['name'];
+$_SESSION['id'] = $data['id'];
 
 ?>
 <!doctype html>
@@ -35,14 +36,14 @@ $name = $data['name'];
         </div>
 
         <div class="d-flex flex-column align-items-center bg-white rounded shadow-sm pt-1 mt-3">
-            <h2 class='font-weight-bold mt-1'>Hello <?php echo htmlspecialchars($name); ?>!</h2>
+            <h2 class='font-weight-bold mt-1'>Hello <?php echo htmlspecialchars($_SESSION['name']); ?>!</h2>
             <p class="font-weight-bold mb-1 text-info">current balance</p>
 
-            <h2 class="pb-1">
-                <?php if ($tokens < 1) {
+            <h2 class="pb-1" id="saldo">
+                <?php if ($_SESSION['tokens'] < 1) {
                     echo "You have no tokens!";
                 }
-                echo htmlspecialchars($tokens); ?>
+                echo htmlspecialchars($_SESSION['tokens']); ?>
                 </h3>
 
         </div>
@@ -67,11 +68,12 @@ $name = $data['name'];
             <!-- search bar -->
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <p id="sender_id" name='sender_id' style="display: none"><?php echo htmlspecialchars($id) ?></p>
                     <span class="input-group-text" id="basic-addon1">@</span>
                 </div>
                 <input type="text" class="form-control" name="receiver_id" id='receiver_id' placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
             </div>
+            <ul id='match_list'>
+            </ul>
             <!-- end search bar -->
 
             <div class="input-group mb-3">
@@ -136,8 +138,9 @@ $name = $data['name'];
 
         </div>
     </main>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    
     <script src="js/wallet.js"></script>
+    <script src="js/search.js"></script>
 </body>
 
 </html>

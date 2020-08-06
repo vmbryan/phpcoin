@@ -163,4 +163,17 @@
 
                 return $result;
             }
+
+            public static function getUserByName($name){
+                $con = Db::getConnection();
+                $stmt = $con->prepare("SELECT id, name, last_name, tokens FROM users WHERE (name LIKE CONCAT('%',:name ,'%') OR last_name LIKE CONCAT('%',:name ,'%'))");
+                // $name =$this->getName();
+
+                $stmt->bindValue(":name", $name);
+        
+                $stmt->execute();
+                $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                return $data;
+            }
         }
