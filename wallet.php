@@ -66,17 +66,17 @@ $_SESSION['id'] = $data['id'];
             <?php endif; ?>
 
             <!-- search bar -->
-            <div class="input-group mb-3">
+            <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon1">@</span>
                 </div>
                 <input type="text" class="form-control" name="receiver_id" id='receiver_id' placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
             </div>
-            <ul id='match_list'>
+            <ul id='match_list' class='list-group'>
             </ul>
             <!-- end search bar -->
 
-            <div class="input-group mb-3">
+            <div class="input-group mb-3 mt-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text">Tokens</span>
                 </div>

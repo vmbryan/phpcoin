@@ -17,5 +17,5 @@
     else{
         
         header('Content-Type: application/json');
-        echo json_encode("{'status' : 'failed'}"); //{'status' : 'succes'};
+        echo json_encode("{'status' : 'failed'}"); //{'status' : 'failed'};
     }
