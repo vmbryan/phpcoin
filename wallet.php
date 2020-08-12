@@ -53,14 +53,13 @@ $_SESSION['id'] = $data['id'];
         </div>
 
         <form class="bg-white my-3 p-3 bg-white rounded shadow-sm " method="post" id="sendmessage">
-            <?php if (isset($error)) : ?>
-                <div class="alert alert-warning" role="alert">
-                    <?php echo htmlspecialchars($error); ?>
+            
+                <div id='errorblock' class="alert alert-warning" role="alert">
+                    
                 </div>
-            <?php endif; ?>
 
             <?php if (isset($success)) : ?>
-                <div class="alert alert-success" role="alert">
+                <div id='succesblock' class="alert alert-success" role="alert">
                     <p><?php echo htmlspecialchars($success); ?></p>
                 </div>
             <?php endif; ?>

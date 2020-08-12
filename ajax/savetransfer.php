@@ -7,6 +7,7 @@
 
             $transfer = new Transfer();
             $data = User::getData($_SESSION['user']);
+            // zet de id van de verzender gelijk aan de ID van de huidig ingelogde persoon
             $transfer->setSender($_SESSION['id']);
             $transfer->setReceiver($_POST['receiver_id']);
             $transfer->setAmount($_POST['amount']);
