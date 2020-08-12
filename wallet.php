@@ -58,11 +58,11 @@ $_SESSION['id'] = $data['id'];
                     
                 </div>
 
-            <?php if (isset($success)) : ?>
+            
                 <div id='succesblock' class="alert alert-success" role="alert">
-                    <p><?php echo htmlspecialchars($success); ?></p>
+                    
                 </div>
-            <?php endif; ?>
+            
 
             <!-- search bar -->
             <div class="input-group">

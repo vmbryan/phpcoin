@@ -44,6 +44,13 @@ document.getElementById('sendTokens').addEventListener('click', function () {
     })
     .then(result => {
       console.log('Success:', result);
+      
+      document.getElementById('receiver_id').value = null;
+      document.getElementById('amount').value = null;
+      document.getElementById('message').value = null;
+
+      succesBlock.style.display='Block';
+      succesBlock.innerText='Tokens sent succesfully!'
 
     })
     .catch(error => {
