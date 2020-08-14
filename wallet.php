@@ -141,6 +141,7 @@ $_SESSION['id'] = $data['id'];
 
         </div>
     </main>
+    <script> window.localStorage.setItem('userid', <?php echo json_encode($_SESSION['id']);?>) ;</script>
     <script src="js/refresh.js"></script>
     <script src="js/wallet.js"></script>
     <script src="js/search.js"></script>

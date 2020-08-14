@@ -95,25 +95,6 @@
                 return $data;
             }
             
-            // public static function update($sender,$receiver,$amount){
-            //     $con = Db::getConnection();
-            //     //tokens van de verzender opvragen 
-                // $stmt = $con->prepare('SELECT tokens FROM users WHERE id LIKE :sender_id');
-                // $stmt->bindValue(":sender_id", $sender);
-                // $senderSaldo = $stmt->execute();
-                // $senderSaldo = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-                // //en updaten
-                
-                // // tokens van de ontvanger opvragen en updaten
-                // $stmt = $con->prepare('SELECT tokens FROM users WHERE id LIKE :receiver_id');
-                // $stmt->bindValue(":receiver_id", $receiver);
-                // $receiverSaldo = $stmt->execute();
-                // $receiverSaldo = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-            //     //en updaten
-            // }
-
 
             public function sendTokens(){
                 $con = Db::getConnection();

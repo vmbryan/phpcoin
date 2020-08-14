@@ -124,6 +124,8 @@
                 return $result;
             }
 
+            
+
             public function verify($email,$password){
                 if (!empty($email) && !empty($password)) {
                     $con = Db::getConnection();
@@ -165,7 +167,20 @@
             }
 
 
+            public static function getTokensForUserById($id){
+                $con = Db::getConnection();
+                $stmt = $con->prepare("SELECT tokens FROM users WHERE id=:id");
 
+                $stmt->bindValue(":id", $id);
+        
+                $stmt->execute();
+                $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                if(empty ($data)){
+                    throw new Exception('No user found');
+                }
+
+                return current($data); // return first value in array;
+            }
             
 
             public static function getUserByName($name){

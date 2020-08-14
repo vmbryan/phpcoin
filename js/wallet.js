@@ -47,10 +47,6 @@ document.getElementById('sendTokens').addEventListener('click', function () {
           return response.json();
         })
         .then(result => {
-          console.log('Success:', result);
-          if(result.status === 'succes'){
-            
-          }
           document.getElementById('receiver_id').value = null;
           document.getElementById('amount').value = null;
           document.getElementById('message').value = null;
