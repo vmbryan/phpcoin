@@ -94,6 +94,26 @@
                 $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 return $data;
             }
+            
+            // public static function update($sender,$receiver,$amount){
+            //     $con = Db::getConnection();
+            //     //tokens van de verzender opvragen 
+                // $stmt = $con->prepare('SELECT tokens FROM users WHERE id LIKE :sender_id');
+                // $stmt->bindValue(":sender_id", $sender);
+                // $senderSaldo = $stmt->execute();
+                // $senderSaldo = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                // //en updaten
+                
+                // // tokens van de ontvanger opvragen en updaten
+                // $stmt = $con->prepare('SELECT tokens FROM users WHERE id LIKE :receiver_id');
+                // $stmt->bindValue(":receiver_id", $receiver);
+                // $receiverSaldo = $stmt->execute();
+                // $receiverSaldo = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            //     //en updaten
+            // }
+
 
             public function sendTokens(){
                 $con = Db::getConnection();
@@ -101,7 +121,6 @@
                 $sender =$this->getSender();
                 $receiver =$this->getReceiver();
                 $amount =$this->getAmount();
-
                 $message = $this->getMessage();
 
                 $stmt->bindValue(":sender_id", $sender);
@@ -110,7 +129,38 @@
                 $stmt->bindValue(":message", $message); 
                 $result = $stmt->execute();
 
+                
+
+                // tokens van de verzender opvragen 
+                $stmt2 = $con->prepare('SELECT tokens FROM users WHERE id LIKE :sender_id');
+                $stmt2->bindValue(":sender_id", $sender);
+                $senderSaldo = $stmt2->execute();
+                $senderSaldo = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+                $senderSaldo = $senderSaldo['0']['tokens'];
+                $senderSaldo = $senderSaldo - $amount;
+
+                // tokens van de ontvanger opvragen 
+                $stmt3 = $con->prepare('SELECT tokens FROM users WHERE id LIKE :receiver_id');
+                $stmt3->bindValue(":receiver_id", $receiver);
+                $receiverSaldo = $stmt3->execute();
+                $receiverSaldo = $stmt3->fetchAll(PDO::FETCH_ASSOC);
+                $receiverSaldo = $receiverSaldo['0']['tokens'];
+                
+                $receiverSaldo = $receiverSaldo + $amount;
+
+                // en beiden updaten
+                $stmt4 = $con->prepare('UPDATE users SET tokens=:sender_tokens WHERE id=:sender_id');
+                $stmt4->bindValue(':sender_tokens', $senderSaldo);
+                $stmt4->bindValue(':sender_id', $sender);
+                $stmt4->execute();
+
+                $stmt5=$con->prepare('UPDATE users SET tokens=:receiver_tokens WHERE id=:receiver_id');
+                $stmt5->bindValue(':receiver_tokens',$receiverSaldo);
+                $stmt5->bindValue(':receiver_id',$receiver);
+                $stmt5->execute();
+
                 return $result;
             }
+            
         }
     

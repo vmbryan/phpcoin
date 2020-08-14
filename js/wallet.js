@@ -31,6 +31,8 @@ document.getElementById('sendTokens').addEventListener('click', function () {
       if (isNaN(amount)) throw "Please specify amount in numbers";
       if (amount > saldo) throw "Amount exceeds current balance";
       if (amount < 1) throw "Amount can not be less than 1";
+    
+
       let formData = new FormData();
       // ID van de zender geven we al mee via PHP
       formData.append('receiver_id', receiver);
@@ -46,7 +48,9 @@ document.getElementById('sendTokens').addEventListener('click', function () {
         })
         .then(result => {
           console.log('Success:', result);
-
+          if(result.status === 'succes'){
+            
+          }
           document.getElementById('receiver_id').value = null;
           document.getElementById('amount').value = null;
           document.getElementById('message').value = null;

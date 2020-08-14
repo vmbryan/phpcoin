@@ -5,7 +5,7 @@
             private $lastName;
             private $email;
             private $password;
-            private $tokens;
+            private $saldo;
 
             
 
@@ -163,6 +163,10 @@
 
                 return $result;
             }
+
+
+
+            
 
             public static function getUserByName($name){
                 $con = Db::getConnection();

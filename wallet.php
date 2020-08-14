@@ -13,6 +13,9 @@ $_SESSION['tokens'] = $data['tokens'];
 $_SESSION['name'] = $data['name'];
 $_SESSION['id'] = $data['id'];
 
+// $plusses = User::updateSaldo($_SESSION['id']);
+// echo "<pre>"; print_r($plusses); echo "</pre>";
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -42,8 +45,9 @@ $_SESSION['id'] = $data['id'];
             <h2 class="pb-1" id="saldo">
                 <?php if ($_SESSION['tokens'] < 1) {
                     echo "You have no tokens!";
-                }
-                echo htmlspecialchars($_SESSION['tokens']); ?>
+                }else{
+                    echo htmlspecialchars($_SESSION['tokens']);
+                }; ?>
                 </h3>
 
         </div>
@@ -137,7 +141,7 @@ $_SESSION['id'] = $data['id'];
 
         </div>
     </main>
-    
+    <script src="js/refresh.js"></script>
     <script src="js/wallet.js"></script>
     <script src="js/search.js"></script>
 </body>
