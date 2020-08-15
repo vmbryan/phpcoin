@@ -52,7 +52,8 @@ document.getElementById('sendTokens').addEventListener('click', function () {
           document.getElementById('message').value = null;
 
           succesBlock.style.display = 'Block';
-          succesBlock.innerText = 'Tokens sent succesfully!'
+          succesBlock.innerText = 'Tokens sent succesfully!';
+          saldo.innerText = getCurrentBalance();
 
         })
         .catch(error => {
@@ -70,6 +71,15 @@ document.getElementById('sendTokens').addEventListener('click', function () {
 
 });
 
+function getCurrentBalance(){
+  fetch('./ajax/refresh.php?id=' + localStorage.getItem('userid')).then(function (response) {
+    return response.json();
+  }).then(function (data) {
+    return data.body.tokens;
+  }).catch(function (error) {
+    console.log(error);
+  });
+}
 
 function togSend() {
     errorBlock.style.display="none";

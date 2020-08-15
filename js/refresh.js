@@ -6,13 +6,16 @@ function startLiveUpdate(){
         fetch('./ajax/refresh.php?id=' + localStorage.getItem('userid')).then(function(response){
             return response.json();  
         }).then(function(data){
-            saldoUpdate.textContent = data.body.tokens; 
+            if(data.body.tokens < 1){
+                saldoUpdate.textContent = "You have no tokens!"; 
+            }else{
+                saldoUpdate.textContent = data.body.tokens; 
+            }
         }).catch(function(error){
             console.log(error);
         });
     }, 10000);
 }
-
 document.addEventListener('DOMContentLoaded', function(){
     startLiveUpdate();
 });
