@@ -45,7 +45,7 @@ $_SESSION['id'] = $data['id'];
             <h2 class="pb-1" id="saldo">
                 <?php if ($_SESSION['tokens'] < 1) {
                     echo "You have no tokens!";
-                }else{
+                } else {
                     echo htmlspecialchars($_SESSION['tokens']);
                 }; ?>
                 </h3>
@@ -57,16 +57,16 @@ $_SESSION['id'] = $data['id'];
         </div>
 
         <form class="bg-white my-3 p-3 bg-white rounded shadow-sm " method="post" id="sendmessage">
-            
-                <div id='errorblock' class="alert alert-warning" role="alert">
-                    
-                </div>
 
-            
-                <div id='succesblock' class="alert alert-success" role="alert">
-                    
-                </div>
-            
+            <div id='errorblock' class="alert alert-warning" role="alert">
+
+            </div>
+
+
+            <div id='succesblock' class="alert alert-success" role="alert">
+
+            </div>
+
 
             <!-- search bar -->
             <div class="input-group">
@@ -101,46 +101,48 @@ $_SESSION['id'] = $data['id'];
         </form>
 
         <div class="my-3 p-3 bg-white rounded shadow-sm">
-            <h3 class="border-bottom border-gray pb-2 mb-0">Recent transfers</h3>
+            <h3 class="transfers border-bottom border-gray pb-2 mb-3">Recent transfers</h3>
 
+                <ul id="transfers">
 
-            <div class="media text-muted pt-3 transfer-article color-red">
-                <p class="media-body pb-3 border-bottom border-gray">
-                    <strong class="d-block text-gray-dark">Bryan Van Mechelen</strong>
-                    Hey thanks for helping me!
-                    <p id='transfer-data'> + 12 </p>
-                </p>
-                
-            </div>
+                    <li class='transfer_item'>
+                        <div class='card mb-1'>
+                            <div class="card-header p-0 pl-2 text-gray-dark lead d-flex justify-content-between">
+                                <h6 class='mb-0 my-auto'>Bryan Van Mechelen</h5>
+                                <p class='mb-0 my-auto alert alert-success d-inline-flex p-1' transfer-data'> + 12 </p>
+                            </div>
+                            <div class="card-body p-2  d-flex justify-content-between mb-0 border-bottom border-gray">
+                                <p class="mb-0 w-75">Hey thanks for helping me that was very nice of you!</p>
+                                <button type="button" class="close" id='close1' aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                    </li>
 
-            <div class="media text-muted pt-3">
-                <svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 32x32">
-                    <title>Placeholder</title>
-                    <rect width="100%" height="100%" fill="#e83e8c" /><text x="50%" y="50%" fill="#e83e8c" dy=".3em">32x32</text>
-                </svg>
-                <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-                    <strong class="d-block text-gray-dark">@username</strong>
-                    Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris
-                    condimentum nibh, ut fermentum massa justo sit amet risus.
-                </p>
-            </div>
-
-            <div class="media text-muted pt-3">
-                <svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 32x32">
-                    <title>Placeholder</title>
-                    <rect width="100%" height="100%" fill="#6f42c1" /><text x="50%" y="50%" fill="#6f42c1" dy=".3em">32x32</text>
-                </svg>
-                <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-                    <strong class="d-block text-gray-dark">@username</strong>
-                    Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris
-                    condimentum nibh, ut fermentum massa justo sit amet risus.
-                </p>
-            </div>
-
+                    <li class='transfer_item'>
+                        <div class='card mb-1'>
+                            <div class="card-header p-0 pl-2 text-gray-dark lead d-flex justify-content-between">
+                                <h6 class='mb-0 my-auto'>Bryan Van Mechelen</h5>
+                                <p class='mb-0 my-auto alert alert-danger d-inline-flex p-1' transfer-data'> - 12 </p>
+                            </div>
+                            <div class="card-body p-2  d-flex justify-content-between mb-0 border-bottom border-gray">
+                                <p class="mb-0 w-75">Hey thanks for helping me that was very nice of you!</p>
+                                <button type="button" class="close" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                    </li>
+                    
+                </ul>
+            
 
         </div>
     </main>
-    <script> window.localStorage.setItem('userid', <?php echo json_encode($_SESSION['id']);?>) ;</script>
+    <script>
+        window.localStorage.setItem('userid', <?php echo json_encode($_SESSION['id']); ?>);
+    </script>
     <script src="js/refresh.js"></script>
     <script src="js/wallet.js"></script>
     <script src="js/search.js"></script>

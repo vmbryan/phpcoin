@@ -1,3 +1,4 @@
+const transferlist = document.getElementById('transfers');
 
 function startLiveUpdate(){
     const saldoUpdate = document.getElementById('saldo');
@@ -16,6 +17,9 @@ function startLiveUpdate(){
         });
     }, 10000);
 }
+
+
+
 document.addEventListener('DOMContentLoaded', function(){
     startLiveUpdate();
 });
