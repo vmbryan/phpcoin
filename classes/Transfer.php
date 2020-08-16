@@ -95,8 +95,38 @@
                 return $data;
             }
             
-            
+            public static function getTransfersForCurrentUser($id){
+                $con = Db::getConnection();
+                $stmt = $con->prepare('SELECT id, sender_id, receiver_id, tokens FROM transfers WHERE sender_id=:id OR receiver_id=:id');
+                $stmt->bindValue(":id", $id);
+                $stmt->execute();
+                $transfers = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+                return $transfers;
+            }
+
+            public static function checkIfPlusOrMin($id, $senderId, $amount){
+                if($id === $senderId){
+                    $result = "- " . $amount;
+                }else{
+                    $result = "+ " . $amount;
+                }
+
+                return $result;
+            }
+
+            public static function changeColorBasedOnPlusOrMin($id, $senderId){
+                if($id === $senderId){
+                    $result = "danger";
+                }else{
+                    $result = "success";
+                }
+
+                return $result;
+            
+            }
+
+        
             public function sendTokens(){
                 $con = Db::getConnection();
                 $stmt = $con->prepare('INSERT INTO transfers (sender_id, receiver_id, tokens, message) VALUES (:sender_id, :receiver_id, :tokens, :message)');

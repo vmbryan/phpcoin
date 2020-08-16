@@ -13,8 +13,15 @@ $_SESSION['tokens'] = $data['tokens'];
 $_SESSION['name'] = $data['name'];
 $_SESSION['id'] = $data['id'];
 
+$transfers = Transfer::getTransfersForCurrentUser($data['id']);
+
+$i = 0;
+
 // $plusses = User::updateSaldo($_SESSION['id']);
-// echo "<pre>"; print_r($plusses); echo "</pre>";
+foreach($transfers as $transfer){
+    // echo "<pre>"; print_r($transfer); echo "</pre>";
+}
+echo "<pre>"; print_r($transfers); echo "</pre>";
 
 ?>
 <!doctype html>
@@ -103,13 +110,13 @@ $_SESSION['id'] = $data['id'];
         <div class="my-3 p-3 bg-white rounded shadow-sm">
             <h3 class="transfers border-bottom border-gray pb-2 mb-3">Recent transfers</h3>
 
-                <ul id="transfers">
-
+            <ul id="transfers">
+                <?php foreach ($transfers as $transfer) : ?>
                     <li class='transfer_item'>
                         <div class='card mb-1'>
                             <div class="card-header p-0 pl-2 text-gray-dark lead d-flex justify-content-between">
-                                <h6 class='mb-0 my-auto'>Bryan Van Mechelen</h5>
-                                <p class='mb-0 my-auto alert alert-success d-inline-flex p-1' transfer-data'> + 12 </p>
+                                <h6 class='mb-0 my-auto'><?php echo(User::convertIdToName($transfer['sender_id']));?></h5>
+                                    <p class='mb-0 my-auto alert alert-<?php echo(Transfer::changeColorBasedOnPlusOrMin($data['id'],$transfer['sender_id']));?> d-inline-flex p-1 transfer-data'><?php echo(Transfer::checkIfPlusOrMin($data['id'], $transfer['sender_id'], $transfer['tokens']));?>  </p>
                             </div>
                             <div class="card-body p-2  d-flex justify-content-between mb-0 border-bottom border-gray">
                                 <p class="mb-0 w-75">Hey thanks for helping me that was very nice of you!</p>
@@ -120,23 +127,9 @@ $_SESSION['id'] = $data['id'];
                         </div>
                     </li>
 
-                    <li class='transfer_item'>
-                        <div class='card mb-1'>
-                            <div class="card-header p-0 pl-2 text-gray-dark lead d-flex justify-content-between">
-                                <h6 class='mb-0 my-auto'>Bryan Van Mechelen</h5>
-                                <p class='mb-0 my-auto alert alert-danger d-inline-flex p-1' transfer-data'> - 12 </p>
-                            </div>
-                            <div class="card-body p-2  d-flex justify-content-between mb-0 border-bottom border-gray">
-                                <p class="mb-0 w-75">Hey thanks for helping me that was very nice of you!</p>
-                                <button type="button" class="close" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                        </div>
-                    </li>
-                    
-                </ul>
-            
+                <?php endforeach; ?>
+            </ul>
+
 
         </div>
     </main>

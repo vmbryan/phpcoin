@@ -181,6 +181,18 @@
 
                 return current($data); // return first value in array;
             }
+
+            public static function convertIdToName($id){
+                $con = Db::getConnection();
+                $stmt = $con->prepare("SELECT name, last_name FROM users WHERE id=:id");
+                $stmt->bindValue(":id", $id);
+                $stmt->execute();
+                $names = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                $name = $names[0]['name'];
+                $lastName = $names[0]['last_name'];
+                $fullName = $name . ' ' . $lastName;
+                return $fullName;
+            }
             
 
             public static function getUserByName($name){

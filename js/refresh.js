@@ -19,7 +19,6 @@ function startLiveUpdate(){
 }
 
 
-
 document.addEventListener('DOMContentLoaded', function(){
     startLiveUpdate();
 });
