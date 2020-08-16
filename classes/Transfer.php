@@ -105,6 +105,17 @@
                 return $transfers;
             }
 
+            public static function getTransferMessageByTransferId($transferId){
+                $con = Db::getConnection();
+                $stmt = $con->prepare('SELECT message FROM transfers WHERE id=:id');
+                $stmt->bindValue(":id",$transferId);
+                $stmt->execute();
+                $message = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                $message = current($message);
+
+                return $message;
+            }
+
             public static function checkIfPlusOrMin($id, $senderId, $amount){
                 if($id === $senderId){
                     $result = "- " . $amount;

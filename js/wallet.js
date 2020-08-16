@@ -2,7 +2,7 @@ let errorBlock = document.getElementById('errorblock');
 let succesBlock = document.getElementById('succesblock');
 errorBlock.style.display='none';
 succesBlock.style.display='none';
-
+const transfers = document.getElementById('transfers');
 document.getElementById('sendTokens').addEventListener('click', function () {
 
   if (confirm('Are you sure you want to proceed?')) {
@@ -71,6 +71,27 @@ document.getElementById('sendTokens').addEventListener('click', function () {
 
 });
 
+
+transfers.addEventListener("click", function (e) {
+  if (e.target && e.target.matches("li.transfer_item")){
+      let transferId = e.target.getAttribute('data-transferId');
+      fetch('./ajax/message.php?id=' + transferId).then(function (response) {
+        return response.json();
+      }).then(function (data) {
+        let cardbody = document.getElementById('cardbody'+transferId);
+        let cardMessage = document.getElementById('transferMessage'+transferId);
+        cardbody.className = "card-body p-2 d-flex justify-content-between mb-0 border-bottom border-gray";
+        cardMessage.innerText = data.body.message;
+        console.log(data.body.message);
+      }).catch(function (error) {
+        console.log(error);
+      });
+
+  }
+});
+
+
+
 function getCurrentBalance(){
   fetch('./ajax/refresh.php?id=' + localStorage.getItem('userid')).then(function (response) {
     return response.json();
@@ -84,7 +105,7 @@ function getCurrentBalance(){
 function togSend() {
     errorBlock.style.display="none";
     succesBlock.style.display='none';
-    var x = document.getElementById("sendmessage");
+    let x = document.getElementById("sendmessage");
     if (x.style.display === "block") {
       x.style.display = "none";
     } else {

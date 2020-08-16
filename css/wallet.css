@@ -9,6 +9,18 @@ body {
 #sendmessage{
   display:none;
 }
+.transfer_item{
+  background-color: #f0f2f5;
+  text-align-last: center;
+  border: solid -1px #ced1d6; 
+  border-radius: 5px;
+}
+
+
+
+.card-header{
+  border-bottom: none;
+}
 
 @media (max-width: 991.98px) {
   .offcanvas-collapse {
