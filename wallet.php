@@ -104,17 +104,7 @@ $transfers = Transfer::getTransfersForCurrentUser($data['id']);
         <div class="my-3 p-3 bg-white rounded shadow-sm">
 
             <section class="transfers border-bottom border-gray pb-2 mb-3" id="transfers">
-                <h1 id="transfers_title">Recent Transfers</h1>
-                <article class="transfer_item" data-transfer-id="">
-                    <header class="transfer_item_header"data-transfer-id="">
-                        <h2 class="transfer_item_desc" data-transfer-id="">UserA sent X Cents to userB.</h2>
-                        <p class="transfer_item_amount">15</p>
-                    </header>
-                    <details class="transfer_item_details_btn" data-transfer-id="">
-                        <summary class="transfer_item_details_tag" data-transfer-id="">Details</summary>
-                        <p class="transfer_item_message" data-transfer-id="">Reason for the transfer</p>
-                    </details>
-                </article>
+
             </section>
 
 

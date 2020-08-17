@@ -31,7 +31,7 @@ document.getElementById('sendTokens').addEventListener('click', function () {
       if (isNaN(amount)) throw "Please specify amount in numbers";
       if (amount > saldo) throw "Amount exceeds current balance";
       if (amount < 1) throw "Amount can not be less than 1";
-    
+      if (document.getElementById('receiver_id').value == "") throw "Please select a recipient.";
 
       let formData = new FormData();
       // ID van de zender geven we al mee via PHP
