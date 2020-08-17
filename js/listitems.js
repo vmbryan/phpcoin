@@ -1,14 +1,11 @@
 
 
 let user_id = localStorage.getItem("userid");
-let current_transfers_length;
-let updated_transfers_length;
+
 
 function createTransferItem(transfers){
     
     transfers.forEach(transfer => {
-    console.log(transfer.message);
-    
 
     let tokens = parseInt(transfer.tokens);
 
@@ -107,27 +104,7 @@ function loadItems(id){
 
 
 
-
-function updatedTransfersForUser(user_id){
-    fetch('./ajax/transfers.php?id=' + user_id).then(function(response){
-        return response.json();  
-    }).then(function(transfers){
-        updated_transfers_length = transfers.body.length;
-    }).catch(function(error){
-        console.log(error);
-    });
-}
-
-function currentTransfersForUser(user_id){
-    fetch('./ajax/transfers.php?id=' + user_id).then(function(response){
-        return response.json();  
-    }).then(function(transfers){
-        current_transfers_length = transfers.body.length;
-    }).catch(function(error){
-        console.log(error);
-    });
-}
-
 document.addEventListener('DOMContentLoaded', function(){
+
     loadItems(user_id);
 });
