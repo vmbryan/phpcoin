@@ -102,42 +102,20 @@ $transfers = Transfer::getTransfersForCurrentUser($data['id']);
         </form>
 
         <div class="my-3 p-3 bg-white rounded shadow-sm">
-            <h3 class="transfers border-bottom border-gray pb-2 mb-3">Recent transfers</h3>
 
-            <ul class="list-unstyled " id="transfers">
-                <?php foreach ($transfers as $transfer) : ?>
-                    <li class='transfer_item mb-3' data-transferId='<?php echo($transfer["id"]);?>'>
-                        <div class='card'>
-                            <div class="card-header p-0 pl-2 text-gray-dark lead d-flex justify-content-between">
-                                <h6 class='mb-0 my-auto'>
-                                    <?php if ($transfer['sender_id'] === $data['id']) {
-                                        echo ('You');
-                                    } else {
-                                        echo (User::convertIdToName($transfer['sender_id']));
-                                    } ?>
-                                    sent
-                                    <?php echo ($transfer['tokens']); ?>
-                                    Cents to
-                                    <?php if ($transfer['receiver_id'] === $data['id']) {
-                                        echo ('You');
-                                    } else {
-                                        echo (User::convertIdToName($transfer['receiver_id']));
-                                    } ?>
-                                    </h6>
-                                    <p class='mb-0 my-auto width alert alert-<?php echo (Transfer::changeColorBasedOnPlusOrMin($data['id'], $transfer['sender_id'])); ?> d-inline-flex p-1 transfer-data'><?php echo (Transfer::checkIfPlusOrMin($data['id'], $transfer['sender_id'], $transfer['tokens'])); ?> </p>
-                            </div>
-                            <div class="card-body p-2 d-none justify-content-between mb-0 border-bottom border-gray" id="cardbody<?PHP echo($transfer['id'])?>">
-                                <p class="transferMessage mb-0 w-75" id='transferMessage<?php echo($transfer['id'])?>'>Hey thanks for helping me that was very nice of you!</p>
-                                <button type="button" class="close" id='close1' aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                        </div>
-                        Details
-                    </li>
-
-                <?php endforeach; ?>
-            </ul>
+            <section class="transfers border-bottom border-gray pb-2 mb-3" id="transfers">
+                <h1 id="transfers_title">Recent Transfers</h1>
+                <article class="transfer_item" data-transfer-id="">
+                    <header class="transfer_item_header"data-transfer-id="">
+                        <h2 class="transfer_item_desc" data-transfer-id="">UserA sent X Cents to userB.</h2>
+                        <p class="transfer_item_amount">15</p>
+                    </header>
+                    <details class="transfer_item_details_btn" data-transfer-id="">
+                        <summary class="transfer_item_details_tag" data-transfer-id="">Details</summary>
+                        <p class="transfer_item_message" data-transfer-id="">Reason for the transfer</p>
+                    </details>
+                </article>
+            </section>
 
 
         </div>
@@ -145,6 +123,7 @@ $transfers = Transfer::getTransfersForCurrentUser($data['id']);
     <script>
         window.localStorage.setItem('userid', <?php echo json_encode($_SESSION['id']); ?>);
     </script>
+    <script src="js/listitems.js"></script>
     <script src="js/refresh.js"></script>
     <script src="js/wallet.js"></script>
     <script src="js/search.js"></script>

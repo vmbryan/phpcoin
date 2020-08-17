@@ -14,9 +14,20 @@ body {
   text-align-last: center;
   border: solid -1px #ced1d6; 
   border-radius: 5px;
+  margin-bottom: 5px;
+  
+}
+.transfer_item_header{
+  display: flex;
+  background-color: lightblue;
+  padding: 5px;
+  border-radius: 5px;
+  justify-content: space-between;
 }
 
-
+.transfer_item_desc{
+  font-size: 1.2em;
+}
 
 .card-header{
   border-bottom: none;
