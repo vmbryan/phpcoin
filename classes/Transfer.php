@@ -97,7 +97,7 @@
             
             public static function getTransfersForCurrentUser($id){
                 $con = Db::getConnection();
-                $stmt = $con->prepare('SELECT id, sender_id, receiver_id, tokens FROM transfers WHERE sender_id=:id OR receiver_id=:id');
+                $stmt = $con->prepare('SELECT id, sender_id, receiver_id, tokens FROM transfers WHERE sender_id=:id OR receiver_id=:id ORDER BY id DESC');
                 $stmt->bindValue(":id", $id);
                 $stmt->execute();
                 $transfers = $stmt->fetchAll(PDO::FETCH_ASSOC);
